@@ -9,8 +9,25 @@ const ImportWallet = ({
   const [is24Words, setIs24Words] = useState(false);
 
   const handleInputChange = (index, value) => {
-    const newMnemonic = [...mnemonic];
-    newMnemonic[index] = value;
+    let words = value.split(" ").filter((word) => word.trim() !== "");
+    if (is24Words && words.length > 24) {
+      words = words.slice(0, 24);
+    } else if (!is24Words && words.length > 12) {
+      words = words.slice(0, 12);
+    }
+
+    let newMnemonic;
+    if (words.length === 12 || words.length === 24) {
+      newMnemonic = [];
+
+      words.forEach((word, i) => {
+        newMnemonic[i] = word;
+      });
+    } else {
+      newMnemonic = [...mnemonic];
+      newMnemonic[index] = value;
+    }
+
     setMnemonic(newMnemonic);
   };
 
@@ -48,7 +65,7 @@ const ImportWallet = ({
         <div className="grid grid-cols-3 gap-4">
           {mnemonic.map((word, index) => (
             <div key={index} className="relative">
-              <span className="absolute left-3 top-2 text-gray-400">
+              <span className="absolute left-2 top-2 text-gray-400">
                 {index + 1}
               </span>
               <input
