@@ -1,8 +1,10 @@
+import Logo from "./Logo";
+
 const Navbar = () => {
   return (
     <nav className="flex justify-between items-center mb-28">
-      <div className="flex items-center">
-        <div className="w-7 h-7 bg-indigo-600 rounded-full mr-2"></div>
+      <div className="flex items-center space-x-2">
+        <Logo />
         <span className="text-2xl font-bold text-white">Pixel</span>
       </div>
 
