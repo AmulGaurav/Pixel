@@ -94,14 +94,22 @@ function App() {
               setShowToast={setShowToast}
             />
 
-            <SupportedChains setActiveWallet={setActiveWallet} />
+            {!activeWallet && (
+              <SupportedChains setActiveWallet={setActiveWallet} />
+            )}
 
-            <div className="mt-8">
+            <div className={`${activeWallet ? "mt-10" : ""}`}>
               {activeWallet === "ethereum" && (
-                <EthWallet mnemonic={mnemonic.join(" ")} />
+                <EthWallet
+                  mnemonic={mnemonic.join(" ")}
+                  setShowMnemonic={setShowMnemonic}
+                />
               )}
               {activeWallet === "solana" && (
-                <SolanaWallet mnemonic={mnemonic.join(" ")} />
+                <SolanaWallet
+                  mnemonic={mnemonic.join(" ")}
+                  setShowMnemonic={setShowMnemonic}
+                />
               )}
             </div>
           </div>
@@ -110,10 +118,13 @@ function App() {
 
       {!isLandingPage && (
         <NavigationBar
+          activeWallet={activeWallet}
           setIsLandingPage={setIsLandingPage}
           setShowImportWallet={setShowImportWallet}
           setMnemonic={setMnemonic}
+          setActiveWallet={setActiveWallet}
           setIsMnemonicEmpty={setIsMnemonicEmpty}
+          setShowMnemonic={setShowMnemonic}
         />
       )}
 

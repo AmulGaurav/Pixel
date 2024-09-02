@@ -3,7 +3,7 @@ import { SiSolana } from "react-icons/si";
 
 const SupportedChains = ({ setActiveWallet }) => {
   return (
-    <div className="mt-8 flex justify-center space-x-10">
+    <div className="mt-10 flex justify-center space-x-10">
       <button
         className="flex items-center space-x-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
         onClick={() => setActiveWallet("ethereum")}

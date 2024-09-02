@@ -9,7 +9,7 @@ import WalletDropdown from "./WalletDropdown";
 import DeleteWallet from "./DeleteWallet";
 import KeyPair from "./KeyPair";
 
-function SolanaWallet({ mnemonic }) {
+function SolanaWallet({ mnemonic, setShowMnemonic }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [wallets, setWallets] = useState([]);
   const [selectedWallet, setSelectedWallet] = useState(null);
@@ -32,6 +32,7 @@ function SolanaWallet({ mnemonic }) {
     setCurrentIndex(currentIndex + 1);
     setWallets([...wallets, newWallet]);
     setSelectedWallet(newWallet);
+    setShowMnemonic(false);
   };
 
   const clearAllWallets = () => {
@@ -58,7 +59,7 @@ function SolanaWallet({ mnemonic }) {
       const json = await response.json();
       setWalletBalance(json.result.value);
 
-      console.log(json);
+      // console.log(json);
     } catch (error) {
       console.error(error.message);
     } finally {
@@ -73,7 +74,7 @@ function SolanaWallet({ mnemonic }) {
   }, [selectedWallet]);
 
   return (
-    <div className="bg-gray-800 rounded-lg p-6 mt-4">
+    <div className="bg-gray-800 rounded-lg">
       <div
         className={`flex ${
           selectedWallet ? "justify-between" : "justify-center"
@@ -82,7 +83,9 @@ function SolanaWallet({ mnemonic }) {
         <div className="space-x-3">
           <button
             onClick={addWallet}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            className={`bg-blue-500 hover:bg-blue-600 text-white font-bold ${
+              selectedWallet ? "py-2" : "py-3"
+            } px-4 rounded`}
           >
             Add SOL Wallet
           </button>
