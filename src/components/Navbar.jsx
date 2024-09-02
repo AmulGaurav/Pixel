@@ -2,7 +2,7 @@ import Logo from "./Logo";
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-between items-center mb-28">
+    <nav className="flex justify-between items-center mb-24">
       <div className="flex items-center space-x-2">
         <Logo />
         <span className="text-2xl font-bold text-white">Pixel</span>
