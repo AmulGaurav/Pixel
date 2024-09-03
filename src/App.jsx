@@ -15,7 +15,9 @@ function App() {
   const [mnemonic, setMnemonic] = useState(Array(12).fill(""));
   const [isMnemonicEmpty, setIsMnemonicEmpty] = useState(true);
   const [showImportWallet, setShowImportWallet] = useState(false);
+  const [isImportedWallet, setIsImportedWallet] = useState(false);
   const [showMnemonic, setShowMnemonic] = useState(true);
+  const [showSupportedChains, setShowSupportedChains] = useState(false);
   const [activeWallet, setActiveWallet] = useState(null);
   const [showToast, setShowToast] = useState(false);
 
@@ -30,7 +32,14 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-purple-900 items-center justify-center p-6">
-      <Navbar />
+      <Navbar
+        setIsLandingPage={setIsLandingPage}
+        setShowImportWallet={setShowImportWallet}
+        setMnemonic={setMnemonic}
+        setIsMnemonicEmpty={setIsMnemonicEmpty}
+        setActiveWallet={setActiveWallet}
+        setShowMnemonic={setShowMnemonic}
+      />
 
       {isLandingPage && (
         <div className="flex flex-col items-center mb-14">
@@ -82,6 +91,8 @@ function App() {
             setMnemonic={setMnemonic}
             setIsMnemonicEmpty={setIsMnemonicEmpty}
             setShowImportWallet={setShowImportWallet}
+            setIsImportedWallet={setIsImportedWallet}
+            setShowSupportedChains={setShowSupportedChains}
           />
         )}
 
@@ -90,12 +101,17 @@ function App() {
             <Mnemonic
               mnemonic={mnemonic}
               showMnemonic={showMnemonic}
+              isImportedWallet={isImportedWallet}
               setShowMnemonic={setShowMnemonic}
+              setShowSupportedChains={setShowSupportedChains}
               setShowToast={setShowToast}
             />
 
-            {!activeWallet && (
-              <SupportedChains setActiveWallet={setActiveWallet} />
+            {showSupportedChains && (
+              <SupportedChains
+                setActiveWallet={setActiveWallet}
+                setShowSupportedChains={setShowSupportedChains}
+              />
             )}
 
             <div className={`${activeWallet ? "mt-10" : ""}`}>
@@ -120,11 +136,13 @@ function App() {
         <NavigationBar
           activeWallet={activeWallet}
           setIsLandingPage={setIsLandingPage}
+          setIsImportedWallet={setIsImportedWallet}
           setShowImportWallet={setShowImportWallet}
           setMnemonic={setMnemonic}
           setActiveWallet={setActiveWallet}
           setIsMnemonicEmpty={setIsMnemonicEmpty}
           setShowMnemonic={setShowMnemonic}
+          setShowSupportedChains={setShowSupportedChains}
         />
       )}
 

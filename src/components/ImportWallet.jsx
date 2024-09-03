@@ -5,6 +5,8 @@ const ImportWallet = ({
   setMnemonic,
   setIsMnemonicEmpty,
   setShowImportWallet,
+  setIsImportedWallet,
+  setShowSupportedChains,
 }) => {
   const [is24Words, setIs24Words] = useState(false);
 
@@ -47,6 +49,8 @@ const ImportWallet = ({
     setMnemonic(mnemonic);
     setIsMnemonicEmpty(false);
     setShowImportWallet(false);
+    setIsImportedWallet(true);
+    setShowSupportedChains(true);
   };
 
   return (

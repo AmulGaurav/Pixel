@@ -1,11 +1,13 @@
 const NavigationBar = ({
   activeWallet,
   setIsLandingPage,
+  setIsImportedWallet,
   setShowImportWallet,
   setMnemonic,
   setActiveWallet,
   setIsMnemonicEmpty,
   setShowMnemonic,
+  setShowSupportedChains,
 }) => {
   return (
     <div className="flex justify-center mt-12">
@@ -14,11 +16,13 @@ const NavigationBar = ({
           className="h-4 w-4 rounded-full cursor-pointer bg-gray-700"
           onClick={() => {
             setIsLandingPage(true);
+            setIsImportedWallet(false);
             setShowImportWallet(false);
             setMnemonic(Array(12).fill(""));
             setIsMnemonicEmpty(true);
             setActiveWallet(null);
             setShowMnemonic(true);
+            setShowSupportedChains(false);
           }}
         ></div>
         <div
@@ -27,6 +31,7 @@ const NavigationBar = ({
           }`}
           onClick={() => {
             setActiveWallet(null);
+            setShowSupportedChains(true);
           }}
         ></div>
         <div

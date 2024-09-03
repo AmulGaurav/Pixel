@@ -1,9 +1,26 @@
 import Logo from "./Logo";
 
-const Navbar = () => {
+const Navbar = ({
+  setIsLandingPage,
+  setShowImportWallet,
+  setMnemonic,
+  setIsMnemonicEmpty,
+  setActiveWallet,
+  setShowMnemonic,
+}) => {
   return (
     <nav className="flex justify-between items-center mb-24">
-      <div className="flex items-center space-x-2">
+      <div
+        className="flex items-center space-x-2 cursor-pointer"
+        onClick={() => {
+          setIsLandingPage(true);
+          setShowImportWallet(false);
+          setMnemonic(Array(12).fill(""));
+          setIsMnemonicEmpty(true);
+          setActiveWallet(null);
+          setShowMnemonic(true);
+        }}
+      >
         <Logo />
         <span className="text-2xl font-bold text-white">Pixel</span>
       </div>
