@@ -1,9 +1,19 @@
-import { useState } from "react";
 import bs58 from "bs58";
 import { FaEye, FaEyeSlash, FaCopy } from "react-icons/fa";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  selectedBlockChainState,
+  showPrivateKeyState,
+  showToastState,
+} from "../store/atoms/uiAtoms";
+import { selectedWalletState } from "../store/atoms/walletAtoms";
 
-const KeyPair = ({ chain, selectedWallet, setShowToast }) => {
-  const [showPrivateKey, setShowPrivateKey] = useState(false);
+const KeyPair = () => {
+  const [showPrivateKey, setShowPrivateKey] =
+    useRecoilState(showPrivateKeyState);
+  const selectedBlockchain = useRecoilValue(selectedBlockChainState);
+  const selectedWallet = useRecoilValue(selectedWalletState);
+  const setShowToast = useSetRecoilState(showToastState);
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
@@ -38,7 +48,7 @@ const KeyPair = ({ chain, selectedWallet, setShowToast }) => {
             type={showPrivateKey ? "text" : "password"}
             readOnly
             value={
-              chain === "solana"
+              selectedBlockchain === "solana"
                 ? bs58.encode(selectedWallet?.privateKey)
                 : selectedWallet?.privateKey
             }

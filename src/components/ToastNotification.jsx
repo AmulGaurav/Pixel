@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import { RxCross2 } from "react-icons/rx";
+import { useRecoilState } from "recoil";
+import { showToastState } from "../store/atoms/uiAtoms";
 
-const ToastNotification = ({ showToast, setShowToast }) => {
+const ToastNotification = () => {
+  const [showToast, setShowToast] = useRecoilState(showToastState);
+
   useEffect(() => {
     if (showToast) {
       const timer = setTimeout(() => {

@@ -1,29 +1,38 @@
 import { FaTrash } from "react-icons/fa";
+import { useRecoilState } from "recoil";
+import {
+  currentIndexState,
+  selectedWalletState,
+  walletsState,
+} from "../store/atoms/walletAtoms";
 
-const DeleteWallet = ({
-  wallets,
-  currentIndex,
-  selectedWallet,
-  setWallets,
-  setCurrentIndex,
-  setSelectedWallet,
-}) => {
+const DeleteWallet = () => {
+  const [wallets, setWallets] = useRecoilState(walletsState);
+  const [currentIndex, setCurrentIndex] = useRecoilState(currentIndexState);
+  const [selectedWallet, setSelectedWallet] =
+    useRecoilState(selectedWalletState);
+
   const handleDeleteWallet = () => {
     const deleteWallet = confirm(
       "Are you sure you want to delete the selected Wallet?"
     );
 
     if (deleteWallet) {
-      let deletedWalletIndex = wallets.findIndex(
-        (w) => w.name === selectedWallet.name
-      );
-      const updatedWallets = wallets.filter((w, index) => {
-        if (index > deletedWalletIndex) {
-          w.name = `Wallet ${index}`;
-        }
+      let deletedWalletIndex;
 
-        return index !== deletedWalletIndex;
-      });
+      const updatedWallets = wallets
+        .filter((w, index) => {
+          if (w.name === selectedWallet.name) deletedWalletIndex = index;
+
+          return index !== deletedWalletIndex;
+        })
+        .map((wallet, index) => {
+          if (index >= deletedWalletIndex) {
+            return { ...wallet, name: `Wallet ${index + 1}` };
+          }
+
+          return wallet;
+        });
 
       setWallets(updatedWallets);
       setCurrentIndex(currentIndex - 1);

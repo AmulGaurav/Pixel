@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { mnemonicToSeed } from "bip39";
 import { Wallet, HDNodeWallet } from "ethers";
 import ToastNotification from "./ToastNotification";
@@ -6,14 +6,26 @@ import WalletDropdown from "./WalletDropdown";
 import DeleteWallet from "./DeleteWallet";
 import KeyPair from "./KeyPair";
 import WalletBalance from "./WalletBalance";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  currentIndexState,
+  isBalanceLoadingState,
+  selectedWalletState,
+  walletBalanceState,
+  walletsState,
+} from "../store/atoms/walletAtoms";
+import { showMnemonicState } from "../store/atoms/uiAtoms";
+import { mnemonicStringSelector } from "../store/selectors/mnemonicSelectors";
 
-const EthWallet = ({ mnemonic, setShowMnemonic }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [wallets, setWallets] = useState([]);
-  const [selectedWallet, setSelectedWallet] = useState(null);
-  const [showToast, setShowToast] = useState(false);
-  const [walletBalance, setWalletBalance] = useState(null);
-  const [isBalanceLoading, setIsBalanceLoading] = useState(true);
+const EthWallet = () => {
+  const mnemonic = useRecoilValue(mnemonicStringSelector);
+  const setShowMnemonic = useSetRecoilState(showMnemonicState);
+  const [currentIndex, setCurrentIndex] = useRecoilState(currentIndexState);
+  const [wallets, setWallets] = useRecoilState(walletsState);
+  const [selectedWallet, setSelectedWallet] =
+    useRecoilState(selectedWalletState);
+  const setWalletBalance = useSetRecoilState(walletBalanceState);
+  const setIsBalanceLoading = useSetRecoilState(isBalanceLoadingState);
 
   const addWallet = async () => {
     const seed = await mnemonicToSeed(mnemonic);
@@ -38,6 +50,7 @@ const EthWallet = ({ mnemonic, setShowMnemonic }) => {
     setWallets([]);
     setSelectedWallet(null);
     setCurrentIndex(0);
+    setShowMnemonic(true);
   };
 
   const getWalletBalance = async () => {
@@ -101,37 +114,18 @@ const EthWallet = ({ mnemonic, setShowMnemonic }) => {
 
         {selectedWallet && (
           <div className="flex space-x-2">
-            <WalletDropdown
-              wallets={wallets}
-              selectedWallet={selectedWallet}
-              setSelectedWallet={setSelectedWallet}
-            />
+            <WalletDropdown />
 
-            <DeleteWallet
-              wallets={wallets}
-              currentIndex={currentIndex}
-              selectedWallet={selectedWallet}
-              setWallets={setWallets}
-              setCurrentIndex={setCurrentIndex}
-              setSelectedWallet={setSelectedWallet}
-            />
+            <DeleteWallet />
           </div>
         )}
       </div>
 
       {selectedWallet && (
         <div className="bg-gray-700 rounded-lg p-4">
-          <KeyPair
-            chain={"eth"}
-            selectedWallet={selectedWallet}
-            setShowToast={setShowToast}
-          />
+          <KeyPair />
 
-          <WalletBalance
-            chain="eth"
-            walletBalance={walletBalance}
-            isLoading={isBalanceLoading}
-          />
+          <WalletBalance />
 
           <div className="flex space-x-4">
             <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded flex-grow">
@@ -144,7 +138,7 @@ const EthWallet = ({ mnemonic, setShowMnemonic }) => {
         </div>
       )}
 
-      <ToastNotification showToast={showToast} setShowToast={setShowToast} />
+      <ToastNotification />
     </div>
   );
 };

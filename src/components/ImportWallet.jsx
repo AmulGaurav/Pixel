@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+  is24WordsState,
+  isMnemonicEmptyState,
+  mnemonicState,
+} from "../store/atoms/globalAtoms";
+import {
+  isImportedWalletState,
+  showImportWalletState,
+  showSupportedChainsState,
+} from "../store/atoms/uiAtoms";
 
-const ImportWallet = ({
-  mnemonic,
-  setMnemonic,
-  setIsMnemonicEmpty,
-  setShowImportWallet,
-  setIsImportedWallet,
-  setShowSupportedChains,
-}) => {
-  const [is24Words, setIs24Words] = useState(false);
+const ImportWallet = () => {
+  const [mnemonic, setMnemonic] = useRecoilState(mnemonicState);
+  const [is24Words, setIs24Words] = useRecoilState(is24WordsState);
+  const setIsMnemonicEmpty = useSetRecoilState(isMnemonicEmptyState);
+  const setShowImportWallet = useSetRecoilState(showImportWalletState);
+  const setIsImportedWallet = useSetRecoilState(isImportedWalletState);
+  const setShowSupportedChains = useSetRecoilState(showSupportedChainsState);
 
   const handleInputChange = (index, value) => {
     let words = value.split(" ").filter((word) => word.trim() !== "");

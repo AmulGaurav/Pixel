@@ -1,15 +1,26 @@
-import { useState } from "react";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  isCheckedState,
+  isRecoveryPhraseSavedState,
+  mnemonicState,
+} from "../store/atoms/globalAtoms";
+import {
+  isImportedWalletState,
+  showMnemonicState,
+  showSupportedChainsState,
+  showToastState,
+} from "../store/atoms/uiAtoms";
 
-const Mnemonic = ({
-  mnemonic,
-  showMnemonic,
-  setShowMnemonic,
-  isImportedWallet,
-  setShowSupportedChains,
-  setShowToast,
-}) => {
-  const [isRecoveryPhraseSaved, setIsRecoveryPhraseSaved] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
+const Mnemonic = () => {
+  const [showMnemonic, setShowMnemonic] = useRecoilState(showMnemonicState);
+  const [isRecoveryPhraseSaved, setIsRecoveryPhraseSaved] = useRecoilState(
+    isRecoveryPhraseSavedState
+  );
+  const [isChecked, setIsChecked] = useRecoilState(isCheckedState);
+  const mnemonic = useRecoilValue(mnemonicState);
+  const isImportedWallet = useRecoilValue(isImportedWalletState);
+  const setShowSupportedChains = useSetRecoilState(showSupportedChainsState);
+  const setShowToast = useSetRecoilState(showToastState);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(mnemonic.join(" "));

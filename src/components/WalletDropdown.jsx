@@ -1,6 +1,12 @@
 import { FaChevronDown } from "react-icons/fa";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { selectedWalletState, walletsState } from "../store/atoms/walletAtoms";
 
-const WalletDropdown = ({ wallets, selectedWallet, setSelectedWallet }) => {
+const WalletDropdown = () => {
+  const wallets = useRecoilValue(walletsState);
+  const [selectedWallet, setSelectedWallet] =
+    useRecoilState(selectedWalletState);
+
   return (
     <div className="relative">
       <select

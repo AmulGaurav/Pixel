@@ -1,24 +1,61 @@
+import { useSetRecoilState } from "recoil";
 import Logo from "./Logo";
+import {
+  isImportedWalletState,
+  isLandingPageState,
+  selectedBlockChainState,
+  showImportWalletState,
+  showMnemonicState,
+  showSupportedChainsState,
+} from "../store/atoms/uiAtoms";
+import {
+  isCheckedState,
+  isMnemonicEmptyState,
+  isRecoveryPhraseSavedState,
+  mnemonicState,
+} from "../store/atoms/globalAtoms";
+import {
+  currentIndexState,
+  selectedWalletState,
+  walletsState,
+} from "../store/atoms/walletAtoms";
 
-const Navbar = ({
-  setIsLandingPage,
-  setShowImportWallet,
-  setMnemonic,
-  setIsMnemonicEmpty,
-  setActiveWallet,
-  setShowMnemonic,
-}) => {
+const Navbar = () => {
+  const setIsLandingPage = useSetRecoilState(isLandingPageState);
+  const setIsImportedWallet = useSetRecoilState(isImportedWalletState);
+  const setShowImportWallet = useSetRecoilState(showImportWalletState);
+  const setMnemonic = useSetRecoilState(mnemonicState);
+  const setIsMnemonicEmpty = useSetRecoilState(isMnemonicEmptyState);
+  const setShowMnemonic = useSetRecoilState(showMnemonicState);
+  const setShowSupportedChains = useSetRecoilState(showSupportedChainsState);
+  const setWallets = useSetRecoilState(walletsState);
+  const setSelectedWallet = useSetRecoilState(selectedWalletState);
+  const setCurrentIndex = useSetRecoilState(currentIndexState);
+  const setIsChecked = useSetRecoilState(isCheckedState);
+  const setSelectedBlockChain = useSetRecoilState(selectedBlockChainState);
+  const setIsRecoveryPhraseSaved = useSetRecoilState(
+    isRecoveryPhraseSavedState
+  );
+
   return (
     <nav className="flex justify-between items-center mb-24">
       <div
         className="flex items-center space-x-2 cursor-pointer"
         onClick={() => {
           setIsLandingPage(true);
+          setIsImportedWallet(false);
           setShowImportWallet(false);
           setMnemonic(Array(12).fill(""));
           setIsMnemonicEmpty(true);
-          setActiveWallet(null);
+          setSelectedBlockChain(null);
           setShowMnemonic(true);
+
+          setShowSupportedChains(false);
+          setIsRecoveryPhraseSaved(false);
+          setIsChecked(false);
+          setWallets([]);
+          setCurrentIndex(0);
+          setSelectedWallet(null);
         }}
       >
         <Logo />
