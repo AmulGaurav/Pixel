@@ -1,5 +1,6 @@
 import bs58 from "bs58";
-import { FaEye, FaEyeSlash, FaCopy } from "react-icons/fa";
+import { FiCopy } from "react-icons/fi";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   selectedBlockChainState,
@@ -9,11 +10,11 @@ import {
 import { selectedWalletState } from "../store/atoms/walletAtoms";
 
 const KeyPair = () => {
-  const [showPrivateKey, setShowPrivateKey] =
-    useRecoilState(showPrivateKeyState);
   const selectedBlockchain = useRecoilValue(selectedBlockChainState);
   const selectedWallet = useRecoilValue(selectedWalletState);
   const setShowToast = useSetRecoilState(showToastState);
+  const [showPrivateKey, setShowPrivateKey] =
+    useRecoilState(showPrivateKeyState);
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
@@ -34,9 +35,9 @@ const KeyPair = () => {
 
           <button
             onClick={() => copyToClipboard(selectedWallet?.publicKey)}
-            className="bg-gray-500 hover:bg-gray-600 p-2 rounded"
+            className="bg-white hover:bg-slate-200 p-2 rounded"
           >
-            <FaCopy className="text-white" />
+            <FiCopy />
           </button>
         </div>
       </div>
@@ -52,24 +53,25 @@ const KeyPair = () => {
                 ? bs58.encode(selectedWallet?.privateKey)
                 : selectedWallet?.privateKey
             }
-            className="bg-gray-600 text-white py-2 px-3 rounded flex-grow mr-2"
+            className="flex-grow bg-gray-600 text-white py-2 px-3 rounded-l-lg"
           />
 
           <button
             onClick={() => setShowPrivateKey(!showPrivateKey)}
-            className="bg-gray-500 hover:bg-gray-600 p-2 rounded mr-2"
+            className="bg-gray-600 py-3 pr-2 rounded-r-lg mr-2"
           >
             {showPrivateKey ? (
-              <FaEyeSlash className="text-white" />
+              <FaEyeSlash className="text-blue-400" />
             ) : (
               <FaEye className="text-white" />
             )}
           </button>
+
           <button
             onClick={() => copyToClipboard(selectedWallet?.privateKey)}
-            className="bg-gray-500 hover:bg-gray-600 p-2 rounded"
+            className="bg-white hover:bg-slate-200 p-2 rounded"
           >
-            <FaCopy className="text-white" />
+            <FiCopy />
           </button>
         </div>
       </div>

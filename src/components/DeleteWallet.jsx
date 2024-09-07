@@ -46,13 +46,15 @@ const DeleteWallet = () => {
   };
 
   return (
-    <button
-      onClick={handleDeleteWallet}
-      className="bg-red-500 hover:bg-red-600 text-white p-2 rounded"
-      title="Delete selected wallet"
-    >
-      <FaTrash />
-    </button>
+    <div>
+      <button
+        onClick={handleDeleteWallet}
+        className="bg-red-500 hover:bg-red-600 text-white p-2 rounded"
+        title="Delete selected wallet"
+      >
+        <FaTrash className="m-1" />
+      </button>
+    </div>
   );
 };
 

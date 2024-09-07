@@ -1,75 +1,42 @@
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import Logo from "./Logo";
-import {
-  isImportedWalletState,
-  isLandingPageState,
-  selectedBlockChainState,
-  showImportWalletState,
-  showMnemonicState,
-  showSupportedChainsState,
-} from "../store/atoms/uiAtoms";
-import {
-  isCheckedState,
-  isMnemonicEmptyState,
-  isRecoveryPhraseSavedState,
-  mnemonicState,
-} from "../store/atoms/globalAtoms";
-import {
-  currentIndexState,
-  selectedWalletState,
-  walletsState,
-} from "../store/atoms/walletAtoms";
+import { isMnemonicEmptyState } from "../store/atoms/globalAtoms";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const setIsLandingPage = useSetRecoilState(isLandingPageState);
-  const setIsImportedWallet = useSetRecoilState(isImportedWalletState);
-  const setShowImportWallet = useSetRecoilState(showImportWalletState);
-  const setMnemonic = useSetRecoilState(mnemonicState);
-  const setIsMnemonicEmpty = useSetRecoilState(isMnemonicEmptyState);
-  const setShowMnemonic = useSetRecoilState(showMnemonicState);
-  const setShowSupportedChains = useSetRecoilState(showSupportedChainsState);
-  const setWallets = useSetRecoilState(walletsState);
-  const setSelectedWallet = useSetRecoilState(selectedWalletState);
-  const setCurrentIndex = useSetRecoilState(currentIndexState);
-  const setIsChecked = useSetRecoilState(isCheckedState);
-  const setSelectedBlockChain = useSetRecoilState(selectedBlockChainState);
-  const setIsRecoveryPhraseSaved = useSetRecoilState(
-    isRecoveryPhraseSavedState
-  );
+  const navigate = useNavigate();
+  const isMnemonicEmpty = useRecoilValue(isMnemonicEmptyState);
 
   return (
     <nav className="flex justify-between items-center mb-24">
       <div
         className="flex items-center space-x-2 cursor-pointer"
         onClick={() => {
-          setIsLandingPage(true);
-          setIsImportedWallet(false);
-          setShowImportWallet(false);
-          setMnemonic(Array(12).fill(""));
-          setIsMnemonicEmpty(true);
-          setSelectedBlockChain(null);
-          setShowMnemonic(true);
-
-          setShowSupportedChains(false);
-          setIsRecoveryPhraseSaved(false);
-          setIsChecked(false);
-          setWallets([]);
-          setCurrentIndex(0);
-          setSelectedWallet(null);
+          if (!isMnemonicEmpty) navigate("/select-blockchain");
+          else navigate("/");
         }}
       >
         <Logo />
         <span className="text-2xl font-bold text-white">Pixel</span>
       </div>
 
-      <a
-        href="https://github.com/AmulGaurav/Pixel"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
-      >
-        GitHub
-      </a>
+      <div className="flex font-bold space-x-4">
+        {!isMnemonicEmpty && (
+          <div className="py-2 px-4 text-red-300 bg-gray-700 hover:bg-gray-600 cursor-pointer rounded-lg transition duration-300">
+            <button onClick={() => navigate("/")}>Logout</button>
+          </div>
+        )}
+
+        <div className="py-2 px-4 text-white bg-gray-700 hover:bg-gray-600 cursor-pointer rounded-lg transition duration-300">
+          <a
+            href="https://github.com/AmulGaurav/Pixel"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+        </div>
+      </div>
     </nav>
   );
 };

@@ -1,4 +1,4 @@
-import { useRouteError, Link } from "react-router-dom";
+import { useRouteError } from "react-router-dom";
 
 const ErrorPage = () => {
   const error = useRouteError();
@@ -24,12 +24,13 @@ const ErrorPage = () => {
           </p>
         )}
 
-        <Link
-          to="/"
+        <a
+          href="/"
+          onClick={() => localStorage.removeItem("mnemonic")}
           className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300"
         >
           Go Back Home
-        </Link>
+        </a>
       </div>
     </div>
   );
