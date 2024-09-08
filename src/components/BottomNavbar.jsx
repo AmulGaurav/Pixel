@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
-import { selectedBlockChainState } from "../store/atoms/uiAtoms";
 import { useLocation, useNavigate } from "react-router-dom";
+import { selectedBlockChainState } from "../store/atoms/uiAtoms";
 
 const BottomNavbar = () => {
   const location = useLocation();

@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { mnemonicToSeed } from "bip39";
 import { Wallet, HDNodeWallet } from "ethers";
+import KeyPair from "../components/KeyPair";
+import { derivePath } from "ed25519-hd-key";
+import { Keypair } from "@solana/web3.js";
+import nacl from "tweetnacl";
 import WalletDropdown from "../components/WalletDropdown";
 import DeleteWallet from "../components/DeleteWallet";
-import KeyPair from "../components/KeyPair";
 import WalletBalance from "../components/WalletBalance";
 import BottomNavbar from "../components/BottomNavbar";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import Header from "../components/Header";
+import Mnemonic from "../components/Mnemonic";
+import Shimmer from "../components/Shimmer";
 import {
   currentIndexState,
   isBalanceLoadingState,
@@ -18,13 +25,6 @@ import {
   selectedBlockChainState,
   showMnemonicState,
 } from "../store/atoms/uiAtoms";
-import { derivePath } from "ed25519-hd-key";
-import { Keypair } from "@solana/web3.js";
-import nacl from "tweetnacl";
-import Header from "../components/Header";
-import Mnemonic from "../components/Mnemonic";
-import { useLocation } from "react-router-dom";
-import Shimmer from "../components/Shimmer";
 import {
   isMnemonicEmptyState,
   mnemonicState,
@@ -167,7 +167,7 @@ const UserWallet = () => {
   }
 
   return (
-    <div>
+    <div className="px-4 md:px-6">
       <Header />
 
       <div

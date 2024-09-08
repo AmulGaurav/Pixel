@@ -23,7 +23,7 @@ function LandingPage() {
   }, []);
 
   return (
-    <div>
+    <div className="px-6">
       <div className="flex flex-col items-center mb-14">
         <div className="mb-4">
           <Logo />

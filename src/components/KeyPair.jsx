@@ -30,7 +30,7 @@ const KeyPair = () => {
             type="text"
             readOnly
             value={selectedWallet?.publicKey}
-            className="bg-gray-600 text-white py-2 px-3 rounded flex-grow mr-2"
+            className="bg-gray-600 text-white py-2 px-3 rounded min-w-56 flex-grow mr-2"
           />
 
           <button
@@ -53,7 +53,7 @@ const KeyPair = () => {
                 ? bs58.encode(selectedWallet?.privateKey)
                 : selectedWallet?.privateKey
             }
-            className="flex-grow bg-gray-600 text-white py-2 px-3 rounded-l-lg"
+            className="flex-grow bg-gray-600 text-white py-2 px-3 min-w-[204px] rounded-l-lg"
           />
 
           <button

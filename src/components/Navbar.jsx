@@ -8,7 +8,7 @@ const Navbar = () => {
   const isMnemonicEmpty = useRecoilValue(isMnemonicEmptyState);
 
   return (
-    <nav className="flex justify-between items-center mb-24">
+    <nav className="flex justify-between items-center px-2 md:px-4 mb-24">
       <div
         className="flex items-center space-x-2 cursor-pointer"
         onClick={() => {
@@ -20,7 +20,7 @@ const Navbar = () => {
         <span className="text-2xl font-bold text-white">Pixel</span>
       </div>
 
-      <div className="flex font-bold space-x-4">
+      <div className="flex font-bold space-x-2 md:space-x-4">
         {!isMnemonicEmpty && (
           <div className="py-2 px-4 text-red-300 bg-gray-700 hover:bg-gray-600 cursor-pointer rounded-lg transition duration-300">
             <button onClick={() => navigate("/")}>Logout</button>

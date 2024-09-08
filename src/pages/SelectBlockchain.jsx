@@ -42,17 +42,21 @@ const SelectBlockchain = () => {
 
   return (
     <div>
-      <Header />
+      <div className="px-6">
+        <Header />
 
-      <div className="pt-6 mb-24">
-        <SupportedChains />
+        <div className="pt-6 mb-24">
+          <SupportedChains />
+        </div>
       </div>
 
-      <div className="bg-gray-800 p-8 rounded-xl shadow-2xl w-full max-w-2xl mx-auto space-y-4">
-        <Mnemonic />
-      </div>
+      <div className="px-4 md:px-6">
+        <div className="bg-gray-800 p-8 rounded-xl shadow-2xl w-full max-w-2xl mx-auto space-y-4">
+          <Mnemonic />
+        </div>
 
-      <BottomNavbar />
+        <BottomNavbar />
+      </div>
     </div>
   );
 };

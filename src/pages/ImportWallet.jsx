@@ -60,7 +60,7 @@ const ImportWallet = () => {
   };
 
   return (
-    <div className="mt-24 p-4">
+    <div className="mt-24 p-4 md:px-6">
       <Header />
 
       <div className="flex justify-center">

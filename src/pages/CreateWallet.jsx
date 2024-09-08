@@ -27,14 +27,15 @@ const CreateWallet = () => {
       const newMnemonic = mn.split(" ");
 
       setMnemonic(newMnemonic);
+      setShowMnemonic(true);
     }
   }, []);
 
   return (
-    <div className="-mt-5">
+    <div className="-mt-5 px-4 md:px-6">
       <Header />
 
-      <div className="bg-gray-800 p-8 rounded-xl shadow-2xl max-w-2xl mx-auto space-y-5">
+      <div className="bg-gray-800 p-4 py-8 md:px-8 rounded-xl shadow-2xl max-w-2xl mx-auto space-y-5">
         <div className="mb-5 px-4 bg-gray-800 rounded-lg shadow-md w-full space-y-4 text-center text-white">
           <h1 className="text-2xl font-bold">Secret Recovery Phrase</h1>
           <p className="text-yellow-300">

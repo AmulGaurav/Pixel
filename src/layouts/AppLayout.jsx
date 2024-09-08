@@ -4,7 +4,7 @@ import ToastNotification from "../components/ToastNotification";
 
 const AppLayout = () => {
   return (
-    <div className="min-h-screen items-center justify-center p-6">
+    <div className="min-h-screen items-center justify-center py-6">
       <Navbar />
       <Outlet />
       <ToastNotification />
